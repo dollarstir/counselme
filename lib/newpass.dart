@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:icounselgh/loginPage.dart';
 import 'package:icounselgh/resetpass.dart';
 import 'HomePage.dart';
 import 'signUpPage.dart';
@@ -9,29 +10,34 @@ import 'package:sweetalert/sweetalert.dart';
 
 import 'dart:convert';
 
-class LoginPage extends StatefulWidget {
+class Newpass extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<Newpass> {
 // late AnimationController controller;
 // AnimationController controller;
 
   TextEditingController _email = TextEditingController();
 
   TextEditingController _password = TextEditingController();
+  TextEditingController _repass = TextEditingController();
   String _loginEmail = "";
   String _loginPassword = "";
   var uid;
+  // var resetnumber ='';
 
-  Future mylogin() async {
-    String url = "https://icounselgh.net/app-login";
+  Future setpass() async {
+    var box = Hive.box("icousel");
+    var usernumber = box.get("resetnumber");
+    String url = "https://icounselgh.net/newpass";
     final response = await http.post(Uri.parse(url), body: {
-      'username': _email.text,
+      'contact': usernumber,
       'password': _password.text,
     });
     var result = jsonDecode(response.body);
+    print(result);
     return result;
   }
 
@@ -87,6 +93,16 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+
+ var charLength;
+   _onChanged(String value) {
+    setState(() {
+      charLength = value.length;
+      
+    });
+    // print(charLength.toString());
+  }
+
   @override
   void initState() {
     mymess = " Please wait ....";
@@ -96,14 +112,16 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
         body: SafeArea(
       child: SingleChildScrollView(
         child: Column(
+          
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 1),
+            SizedBox(height: 10),
             // Text("   Login",
             //     style: TextStyle(
             //         color: Theme.of(context).accentColor,
@@ -111,16 +129,16 @@ class _LoginPageState extends State<LoginPage> {
             //         fontSize: 20)),
             Image(
               image: AssetImage("assets/images/logo.png"),
-              width: MediaQuery.of(context).size.width * 1,
-              height: MediaQuery.of(context).size.height * 0.31,
+              width: double.infinity,
+              height: 160,
             ),
-            SizedBox(height: 10),
-            CustomTextField(
-              //controller: ,
-              controller: _email,
-              hintText: "Email / phone number ",
-              data: Icons.person,
-              isObsecure: false,
+            SizedBox(height: 30),
+            CustomPasswordTextField(
+              isObsecure: true,
+              data: Icons.lock,
+              hintText: "Enter New Password",
+              controller: _password,
+              onChanged: _onChanged,
             ),
             SizedBox(
               height: 10,
@@ -128,31 +146,12 @@ class _LoginPageState extends State<LoginPage> {
             CustomPasswordTextField(
               isObsecure: true,
               data: Icons.lock,
-              hintText: "Password",
-              controller: _password,
+              hintText: "Confirm New Password",
+              controller: _repass,
             ),
-
-            SizedBox(height: 10),
-            Container(
-              padding: EdgeInsets.only(right: 40),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  // Text("Do you have an account? "),
-                  GestureDetector(
-                    onTap: () {
-                      Route route =
-                          MaterialPageRoute(builder: (c) => Resetpass());
-                      Navigator.push(context, route);
-                    },
-                    child: Text(
-                      "Forgot Password",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  )
-                ],
-              ),
-            ),
+            
+            
+            
             SizedBox(height: 70),
             GestureDetector(
               onTap: () async {
@@ -164,27 +163,36 @@ class _LoginPageState extends State<LoginPage> {
                   showCancelButton: false,
                   style: SweetAlertStyle.loading,
                 );
-                if (_email.text == "") {
+                if (_password.text == "") {
                   Navigator.of(context).pop();
                   SweetAlert.show(context,
                       title: "Warning!",
-                      subtitle: "please enter email",
+                      subtitle: "password can't be empty",
                       style: SweetAlertStyle.error,
                       showCancelButton: false);
-                } else if (_password.text == "") {
+                } else if (charLength <= 4) {
                   Navigator.of(context).pop();
                   SweetAlert.show(context,
                       title: 'Warning!',
-                      subtitle: "password can not be empty",
+                      subtitle: "password too short",
+                      showCancelButton: false,
+                      style: SweetAlertStyle.error);
+                }
+                 else if (_password.text != _repass.text) {
+                  Navigator.of(context).pop();
+                  SweetAlert.show(context,
+                      title: 'Warning!',
+                      subtitle: "Password do not match",
                       showCancelButton: false,
                       style: SweetAlertStyle.error);
                 } else {
                   var resp;
                   try {
-                    resp = await mylogin();
-                    print(resp);
-                  } catch (e) {
-                    return;
+                  resp = await setpass();
+                  print(resp);
+                    
+                  } catch(e) {
+                    return ;
                   }
 
                   SweetAlert.show(
@@ -199,57 +207,37 @@ class _LoginPageState extends State<LoginPage> {
                     // Navigator.of(context).pop();
                     SweetAlert.show(context,
                         title: "Sorry",
-                        subtitle: "Invalid login credentials",
+                        subtitle: "Something went wrong",
                         showCancelButton: false,
                         style: SweetAlertStyle.error);
-                  } else {
-                    // print(resp);
-                    // print(resp[0]["name"]);
-                    setState(() {
-                      uid = resp[0]['id'];
-                      mymess = "login successful";
-                    });
-                    // print(uid);
-                    var box = Hive.box("icousel");
-                    box.put("islog", 1);
-                    box.put('userid', uid);
-                    // var repo = await user();
-                    setState(() {
-                      uname = resp[0]["name"];
-                      umail = resp[0]["email"];
-                      ucontact = resp[0]["contact"];
-                      ucountry = resp[0]["country"];
-                      ugender = resp[0]["gender"];
-                      ustate = resp[0]["state"];
-                      udob = resp[0]["dob"];
-                      upass = resp[0]["passcode"];
-                    });
-
-                    box.put('uname', uname);
-                    box.put('umail', umail);
-                    box.put('ucontact', ucontact);
-                    box.put('ucountry', ucountry);
-                    box.put('ugender', ugender);
-                    box.put('ustate', ustate);
-                    box.put('udob', udob);
-                    box.put('upass', upass);
-
-                    // box.put("userid", value)
+                  }
+                  else if (resp == "invalid") {
                     // Navigator.of(context).pop();
+                    SweetAlert.show(context,
+                        title: "Sorry",
+                        subtitle: "invalid credentials",
+                        showCancelButton: false,
+                        style: SweetAlertStyle.error);
+                  }  else if(resp == "resetsuccess") {
+                   
+                   
+                    // var repo = await user();
+                   
+
+                   
                     SweetAlert.show(
                       context,
-                      title: "Login successful",
-                      // subtitle: "Sweet alert is pretty",
+                      title: "Password reset successful",
+                    
                       style: SweetAlertStyle.success,
                       showCancelButton:
-                          false, // There won't be any cancel button
-                      // buttons: false;// There won't be any confirm button
+                          false, 
                     );
 
-                    Future.delayed(Duration(seconds: 1), () {
+                    Future.delayed(Duration(seconds: 2), () {
                       Navigator.of(context).pop();
                       Route route =
-                          MaterialPageRoute(builder: (c) => HomeScreen());
+                          MaterialPageRoute(builder: (c) => LoginPage());
                       Navigator.pushReplacement(context, route);
                     });
                   }
@@ -272,7 +260,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   child: Center(
                     child: Text(
-                      "Login",
+                      "Submit",
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -283,23 +271,7 @@ class _LoginPageState extends State<LoginPage> {
                   )),
             ),
             SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Don't  have an account? "),
-                GestureDetector(
-                  onTap: () {
-                    Route route =
-                        MaterialPageRoute(builder: (c) => SignUpPage());
-                    Navigator.push(context, route);
-                  },
-                  child: Text(
-                    "SignUp",
-                    style: TextStyle(color: Theme.of(context).accentColor),
-                  ),
-                )
-              ],
-            ),
+           
           ],
         ),
       ),
@@ -349,12 +321,7 @@ class CustomSearchTextField extends StatelessWidget {
   bool isObsecure = true;
 
   CustomSearchTextField(
-      {Key key,
-      this.controller,
-      this.data,
-      this.hintText,
-      this.isObsecure,
-      this.onChanged})
+      {Key key, this.controller, this.data, this.hintText, this.isObsecure, this.onChanged})
       : super(key: key);
 
   @override
@@ -387,9 +354,10 @@ class CustomPasswordTextField extends StatefulWidget {
   final IconData data;
   final String hintText;
   final bool isObsecure;
+  final   onChanged;
 
   CustomPasswordTextField(
-      {Key key, this.controller, this.data, this.hintText, this.isObsecure})
+      {Key key, this.controller, this.data, this.hintText,this.isObsecure,this.onChanged})
       : super(key: key);
 
   @override
@@ -420,6 +388,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
         controller: widget.controller,
         obscureText: _isVisible,
         cursorColor: Theme.of(context).primaryColor,
+        onChanged: widget.onChanged,
         decoration: InputDecoration(
             //border: InputBorder.none,
             focusColor: Theme.of(context).primaryColor,

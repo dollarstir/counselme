@@ -24,7 +24,7 @@ void main() async{
     NotificationChannel(
         channelKey: "basic_channel",
         channelName: "Basic Notifications",
-        channelDescription: "iCounsel-Gh",
+        channelDescription: "Counsel-Me",
         defaultColor: Colors.orange,
         importance: NotificationImportance.High,
         channelShowBadge: true)
@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return MaterialApp(
-      title: 'Icounsel-Gh',
+      title: 'Counsel-Me',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
     //     textTheme: GoogleFonts.latoTextTheme(

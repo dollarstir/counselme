@@ -92,7 +92,7 @@ class _FaqState extends State<Cform> {
                             SizedBox(height: 10),
                             Container(
                               child: Text(
-                                  "Welcome to TUCEE iCounsel-Gh session. You are a cherished friend of TUCEE and associates. iCounsel-Gh session involves counselling process designed to help you gain a greater understanding of yourself and environment towards making informed decisions. The outcome of counselling is often positive; however, the level of satisfaction for any individual is not predictable. Your counsellor is available to support you throughout the counselling process"),
+                                  "Welcome to TUCEE Counsel-Me session. You are a cherished friend of TUCEE and associates. Counsel-Me session involves counselling process designed to help you gain a greater understanding of yourself and environment towards making informed decisions. The outcome of counselling is often positive; however, the level of satisfaction for any individual is not predictable. Your counsellor is available to support you throughout the counselling process"),
                             )
                           ],
                         ),

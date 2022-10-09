@@ -1037,7 +1037,7 @@ class _SignUpPageState extends State<NewCounsellor> {
                               );
                             } 
                             else if (repo == "upload complete") {
-                              creatNotificationnopic('Your request to join iCounsel-Gh Counsellors is submitted for review ');
+                              creatNotificationnopic('Your request to join Counsel-Me Counsellors is submitted for review ');
                               SweetAlert.show(
                                 context,
                                 title: "Congrats!",

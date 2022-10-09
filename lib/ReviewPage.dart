@@ -140,7 +140,7 @@ class _ActivityState extends State<Review> {
               color: Color(0xfffaab3b),
             ),
             child: Text(
-              "Kindly rate our services as well as the Counsellors/Psychologists. You can also view other people's experience with iCounsel-Gh.'",
+              "Kindly rate our services as well as the Counsellors/Psychologists. You can also view other people's experience with Counsel-Me.'",
               style: GoogleFonts.montserrat(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,

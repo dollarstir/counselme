@@ -132,7 +132,7 @@ class _QuoteScreenState extends State<Cregister> {
                             ),
                           ),
                           Text(
-                            'for taking the counselling profession. Do you want to be connected to clients anywhere and anytime?  Then join the iCounsel-Gh team.',
+                            'for taking the counselling profession. Do you want to be connected to clients anywhere and anytime?  Then join the Counsel-Me team.',
                             style: GoogleFonts.montserrat(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,

@@ -45,7 +45,7 @@ class _FaqState extends State<About> {
                             Container(
                               padding: EdgeInsets.only(left: 15,right: 15,top: 5),
                               child: Text(
-                                  "iCounsel-Gh has been built in a well-structured technology systems, operation, and infrastructure with your privacy in mind. You can feel safe and comfortable because the following conditions have been embedded in the App to ensure your privacy.",
+                                  "Counsel-Me has been built in a well-structured technology systems, operation, and infrastructure with your privacy in mind. You can feel safe and comfortable because the following conditions have been embedded in the App to ensure your privacy.",
                                   style: GoogleFonts.montserrat(
                                     fontSize: 14, fontWeight: FontWeight.w500),
                                     textAlign: TextAlign.justify

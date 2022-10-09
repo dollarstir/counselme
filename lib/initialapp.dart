@@ -73,7 +73,7 @@ class _FaqState extends State<InitialApp> {
       // appBar: AppBar(
       //   backgroundColor: Colors.white,
       //   title: Text(
-      //     "About  iCounsel-Gh  App",
+      //     "About  Counsel-Me  App",
       //     style: TextStyle(color: Colors.orange),
       //   ),
       // ),
@@ -112,7 +112,7 @@ class _FaqState extends State<InitialApp> {
                               Container(
                               padding: EdgeInsets.only(left: 10, right: 10),
                               child: Text(
-                                  "iCounsel-Gh is a cyber counselling modality designed to make counselling services available to anyone, anywhere and anytime via calls, chat, sms and more.\n\n This counselling modality brings your counsellor to you as soon as you place a call or send a message. Remember that your counsellor is a click away. \n  Make a call to 0208-496-496 \nSend e-mail to icounselgh.org@gmail.com. \n\n App Version : 1.1.0",
+                                  "Counsel-Me is a cyber counselling modality designed to make counselling services available to anyone, anywhere and anytime via calls, chat, sms and more.\n\n This counselling modality brings your counsellor to you as soon as you place a call or send a message. Remember that your counsellor is a click away. \n  Make a call to 0208-496-496 \nSend e-mail to icounselgh.org@gmail.com. \n\n App Version : 1.1.0",
                                   style: GoogleFonts.montserrat(
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold),

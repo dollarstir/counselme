@@ -168,7 +168,7 @@ class _SignUpPage2State extends State<SignUpPage2> {
                     );
                     print(resp);
                   } else if (resp == "registered") {
-                      creatNotificationnopic('Welcome to the TUCEE iCounsel-Gh App. We are excited to have you on board!.');
+                      creatNotificationnopic('Welcome to the TUCEE Counsel-Me App. We are excited to have you on board!.');
                       var rep;
                       try {
                       rep = await mylogin();

@@ -298,7 +298,7 @@ class _QuoteScreenState extends State<Groups> {
                         children: [
                            Container(child:Image(image:  AssetImage('assets/images/cs.png'),width: screenwidth * 0.3,)),
                           Text(
-                            'Hearing from others with similar issues you are facing helps you see that you are not alone in having challenges. iCounsel-Gh provides the opportunity for you to connect, share and heal.',
+                            'Hearing from others with similar issues you are facing helps you see that you are not alone in having challenges. Counsel-Me provides the opportunity for you to connect, share and heal.',
                             textAlign: TextAlign.center,
                             style: GoogleFonts.montserrat(
                                 fontSize: 14,

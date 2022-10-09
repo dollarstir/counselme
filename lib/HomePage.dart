@@ -249,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           // Text(
-          //   "iCounsel-Gh",
+          //   "Counsel-Me",
           //   style: TextStyle(
           //       color: Theme.of(context).accentColor,
           //       fontWeight: FontWeight.bold),
